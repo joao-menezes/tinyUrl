@@ -36,3 +36,13 @@ export const redirectToOriginalUrl = async (req: Request, res: Response) => {
         res.status(500).json({ error: "Erro ao buscar URL" });
     }
 };
+
+export const afterOneDayWipeServer = async () => {
+    try {
+        // const oneDayAgo = new Date(new Date().getTime() - 86400000);
+        const result = await Url.deleteMany();
+        console.log(`URLs expiradas apagadas: ${result.deletedCount}`);
+    } catch (error) {
+        console.error("Erro ao apagar URLs expiradas:", error);
+    }
+};
